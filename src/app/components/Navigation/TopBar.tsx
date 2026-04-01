@@ -12,14 +12,14 @@ import { authClient } from "~/server/better-auth/client";
 
 export default function TopBar() {
     const router = useRouter();
-    const {data: session} = authClient.useSession();
+    const { data: session } = authClient.useSession();
 
     return (
         <AppBar>
             <Toolbar className="flex justify-between">
                 <CatIcon
                     onClick={() => router.push("/")}
-                    className="cursor-pointer"
+                    className="cursor-pointer h-8 w-8"
                 />
                 <Box
                     id="page-links"
