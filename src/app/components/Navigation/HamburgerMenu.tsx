@@ -20,7 +20,7 @@ export default function HamburgerMenu() {
 
     return (
         <>
-            <AppBar position="static">
+            <AppBar position="static" elevation={0}>
                 <Toolbar className="justify-between">
                     <CatIcon
                         onClick={() => router.push("/")}

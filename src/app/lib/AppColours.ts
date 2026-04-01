@@ -4,4 +4,6 @@ export const AppColours = {
     seaGreen: "#5c946E",
     mutedTeal: "#80c2AF",
     frostedBlue: "#A0DDE6",
+    tropicalMint: "#4CE0B3",
+    goldenApricot: "#ED9B40"
 };

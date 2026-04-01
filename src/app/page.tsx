@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import { auth } from "~/server/better-auth";
 import { getSession } from "~/server/better-auth/server";
+import ReviewModal from "~/app/components/ReviewModal";
 
 export default async function Home() {
   const session = await getSession();
@@ -11,6 +12,7 @@ export default async function Home() {
   return (
     <main>
 
+        <ReviewModal isCreate={true}/>
     </main>
   );
 }

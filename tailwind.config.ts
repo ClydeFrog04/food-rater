@@ -28,6 +28,7 @@ const config: Config = {
                 frostedBlue: AppColours.frostedBlue,
                 mutedTeal: AppColours.mutedTeal,
                 jetBlack: AppColours.jetBlack,
+                goldenApricot: AppColours.goldenApricot,
             },
         },
     },

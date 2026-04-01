@@ -5,6 +5,7 @@ import {
     ThemeProvider,
 } from "@mui/material/styles";
 import { AppColours } from "~/app/lib/AppColours";
+import { ReviewModalContextProvider } from "~/app/contexts/ReviewModalContext";
 
 
 const theme = createTheme({
@@ -24,8 +25,10 @@ export default function Providers({children}: Readonly<{ children: React.ReactNo
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-                {children}
+                <ReviewModalContextProvider>
+                    {children}
+                </ReviewModalContextProvider>
             </ThemeProvider>
         </StyledEngineProvider>
-    )
+    );
 }

@@ -15,7 +15,7 @@ export default function TopBar() {
     const { data: session } = authClient.useSession();
 
     return (
-        <AppBar>
+        <AppBar elevation={0}>
             <Toolbar className="flex justify-between">
                 <CatIcon
                     onClick={() => router.push("/")}
