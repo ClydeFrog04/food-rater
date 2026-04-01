@@ -38,8 +38,8 @@ export default async function ReviewsGrid() {
                                         />
                                     </Box>
                                 ) : (
-                                    <Box className="relative aspect-square w-[200px]">
-                                        <HamburgerIcon className="block h-[200px] w-[200px] bg-[#ebeae5] p-4" />
+                                    <Box className="flex aspect-square w-full items-center justify-center bg-[#ebeae5] max-w-[200px]">
+                                        <HamburgerIcon className="h-1/2 w-1/2 stroke-gray-400" />
                                     </Box>
                                 )}
                                 <Box component="section" className="pt-4">
@@ -71,3 +71,20 @@ export default async function ReviewsGrid() {
         </Container>
     );
 }
+
+/*
+{review.imageUrl ? (
+    <Box className="relative aspect-square w-full">
+        <Image
+            src={review.imageUrl}
+            alt="a picture of a burger"
+            fill
+            className="object-cover object-bottom"
+        />
+    </Box>
+) : (
+    <Box className="aspect-square w-full flex items-center justify-center bg-[#ebeae5]">
+        <HamburgerIcon className="w-1/2 h-1/2 stroke-gray-400" />
+    </Box>
+)}
+ */

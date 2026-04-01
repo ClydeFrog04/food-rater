@@ -17,7 +17,7 @@ export default function TopBar() {
     const {openView, openCreate} = useReviewModal();
 
     return (
-        <AppBar elevation={0}>
+        <AppBar elevation={0} position="static">
             <Toolbar className="flex justify-between">
                 <CatIcon
                     onClick={() => router.push("/")}

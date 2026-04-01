@@ -26,6 +26,28 @@ export async function GET(): Promise<Response> {
             burgerName: "Jagger Burger",
             restaurantId: "Jagger",
         },
+        {
+            rating: {
+                taste: 2,
+                texture: 3,
+                presentation: 2,
+            },
+            optionalNotes: "",
+            burgerName: "Jagger Fried Chicken Burger",
+            restaurantId: "Randi's Kitchen",
+            imageUrl: "/images/burgers/jaggerFriedChickenBurger.jpg",
+        },
+        {
+            rating: {
+                taste: 5,
+                texture: 5,
+                presentation: 5,
+            },
+            optionalNotes: "",
+            burgerName: "Cheese Burger",
+            restaurantId: "Randi's Kitchen",
+            imageUrl: "/images/burgers/jaggerCheeseBurger.jpg",
+        },
     ];
 
     return Response.json(data);
