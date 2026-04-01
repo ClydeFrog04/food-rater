@@ -6,7 +6,7 @@ import type { ReviewT } from "~/app/lib/ReviewTypes";
 import { createContext, type ReactNode, useContext, useState } from "react";
 
 type ReviewModalContextT = {
-    open: boolean;
+    isOpen: boolean;
     isCreate: boolean;
     review: ReviewT | null;
     openCreate: () => void;
@@ -21,30 +21,31 @@ export function ReviewModalContextProvider({
 }: {
     children: ReactNode;
 }) {
-    const [open, setOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const [isCreate, setIsCreate] = useState(true);
     const [review, setReview] = useState<ReviewT | null>(null);
 
     const openCreate = () => {
+        console.log("OPENING");
         setReview(null);
         setIsCreate(true);
-        setOpen(true);
+        setIsOpen(true);
     };
 
     const openView = (review: ReviewT) => {
         setReview(review);
         setIsCreate(false);
-        setOpen(true);
+        setIsOpen(true);
     };
 
     const closeModal = () => {
-        setOpen(false);
+        setIsOpen(false);
     };
 
     return (
         <ReviewModalContext.Provider
             value={{
-                open,
+                isOpen,
                 isCreate,
                 review,
                 openCreate,
@@ -66,19 +67,3 @@ export function useReviewModal() {
         );
     return context;
 }
-
-/*
-
-    return (
-        <ReviewModalContext.Provider value={{ open, isCreate, review, openCreate, openView, close }}>
-            {children}
-        </ReviewModalContext.Provider>
-    );
-}
-
-export function useReviewModal() {
-    const ctx = useContext(ReviewModalContext);
-    if (!ctx) throw new Error("useReviewModal must be used within ReviewModalProvider");
-    return ctx;
-}
-*/

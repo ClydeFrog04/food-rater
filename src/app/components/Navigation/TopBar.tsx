@@ -9,10 +9,12 @@ import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import { CatIcon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { authClient } from "~/server/better-auth/client";
+import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 
 export default function TopBar() {
     const router = useRouter();
     const { data: session } = authClient.useSession();
+    const {openView, openCreate} = useReviewModal();
 
     return (
         <AppBar elevation={0}>
@@ -37,6 +39,7 @@ export default function TopBar() {
                         aria-label="add burger review"
                         variant="contained"
                         className="btn-primary"
+                        onClick={openCreate}
                     >
                         Add Review
                     </Button>

@@ -13,10 +13,12 @@ import {
 } from "@mui/material";
 import {CatIcon, SquareMenuIcon, XIcon} from "lucide-react";
 import {useRouter} from "next/navigation";
+import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 
 export default function HamburgerMenu() {
     const [open, setOpen] = useState(false);
     const router = useRouter();
+    const { openView, openCreate } = useReviewModal();
 
     return (
         <>
@@ -24,7 +26,7 @@ export default function HamburgerMenu() {
                 <Toolbar className="justify-between">
                     <CatIcon
                         onClick={() => router.push("/")}
-                        className="cursor-pointer h-8 w-8"
+                        className="h-8 w-8 cursor-pointer"
                     />
                     <IconButton
                         aria-expanded={open}
@@ -63,7 +65,12 @@ export default function HamburgerMenu() {
                     <ListItemButton onClick={() => setOpen(false)}>
                         <ListItemText className="text-black" primary="Home" />
                     </ListItemButton>
-                    <ListItemButton onClick={() => setOpen(false)}>
+                    <ListItemButton
+                        onClick={() => {
+                            openCreate();
+                            setOpen(false);
+                        }}
+                    >
                         <ListItemText
                             className="text-black"
                             primary="Add Review"

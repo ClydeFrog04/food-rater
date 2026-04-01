@@ -42,3 +42,10 @@ body {
   text-black
   normal-case
 }
+
+.btn-cancel{
+  @apply
+  bg-grey-300
+  text-black
+  normal-case
+}

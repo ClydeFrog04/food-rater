@@ -1,7 +1,5 @@
 export type ReviewT = {
-    taste: number;
-    texture: number;
-    presentation: number;
+    rating: RatingT;
     optionalNotes?: string;
     burgerName: string;
     restaurantId: string;
