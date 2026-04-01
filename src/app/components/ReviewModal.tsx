@@ -11,7 +11,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
     ChefHatIcon,
     HamburgerIcon,
@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import type { RatingT, ReviewT } from "~/app/lib/ReviewTypes";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
+import BurgerStarRating from "~/app/components/BurgerStarRating";
 
 type ParamsT = {
     isCreate: boolean;
@@ -43,77 +44,57 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
 
     return (
         <Stack spacing={2}>
-            <Stack direction="row" alignItems="center" gap={2}>
-                <Typography variant="body2" width={100}>
-                    Taste
-                </Typography>
-                <Rating
-                    name="taste"
-                    value={rating.taste}
-                    disabled={!isCreate}
-                    onChange={(_, newRating) =>
-                        onChange({ ...rating, taste: newRating ?? 1 })
-                    }
-                    icon={
-                        <HamburgerIcon
-                            className="stroke-goldenApricot"
-                            size={28}
-                        />
-                    }
-                    emptyIcon={
-                        <HamburgerIcon className="stroke-grey-300" size={28} />
-                    }
-                />
-            </Stack>
-
-            <Stack direction="row" alignItems="center" gap={2}>
-                <Typography variant="body2" width={100}>
-                    Texture
-                </Typography>
-                <Rating
-                    name="texture"
-                    value={rating.texture}
-                    disabled={!isCreate}
-                    onChange={(_, newRating) =>
-                        onChange({ ...rating, texture: newRating ?? 1 })
-                    }
-                    icon={
-                        <UtensilsCrossedIcon
-                            className="stroke-goldenApricot"
-                            size={28}
-                        />
-                    }
-                    emptyIcon={
-                        <UtensilsCrossedIcon
-                            className="stroke-grey-300"
-                            size={28}
-                        />
-                    }
-                />
-            </Stack>
-
-            <Stack direction="row" alignItems="center" gap={2}>
-                <Typography variant="body2" width={100}>
-                    Presentation
-                </Typography>
-                <Rating
-                    name="presentation"
-                    value={rating.presentation}
-                    disabled={!isCreate}
-                    onChange={(_, newRating) =>
-                        onChange({ ...rating, presentation: newRating ?? 1 })
-                    }
-                    icon={
-                        <ChefHatIcon
-                            className="stroke-goldenApricot"
-                            size={28}
-                        />
-                    }
-                    emptyIcon={
-                        <ChefHatIcon className="stroke-grey-300" size={28} />
-                    }
-                />
-            </Stack>
+            <BurgerStarRating
+                label="Taste"
+                name="taste"
+                value={rating.taste}
+                disabled={!isCreate}
+                icon={
+                    <HamburgerIcon className="stroke-goldenApricot" size={28} />
+                }
+                emptyIcon={
+                    <HamburgerIcon className="stroke-grey-300" size={28} />
+                }
+                onChange={(newRating) => onChange({ ...rating, taste: newRating })}
+            />
+            <BurgerStarRating
+                label="Texture"
+                name="texture"
+                value={rating.texture}
+                disabled={!isCreate}
+                icon={
+                    <UtensilsCrossedIcon
+                        className="stroke-goldenApricot"
+                        size={28}
+                    />
+                }
+                emptyIcon={
+                    <UtensilsCrossedIcon
+                        className="stroke-grey-300"
+                        size={28}
+                    />
+                }
+                onChange={(newRating) => onChange({ ...rating, texture: newRating })}
+            />
+            <BurgerStarRating
+                label="Presentation"
+                name="presentation"
+                value={rating.presentation}
+                disabled={!isCreate}
+                icon={
+                    <ChefHatIcon
+                        className="stroke-goldenApricot"
+                        size={28}
+                    />
+                }
+                emptyIcon={
+                    <ChefHatIcon
+                        className="stroke-grey-300"
+                        size={28}
+                    />
+                }
+                onChange={(newRating) => onChange({ ...rating, presentation: newRating })}
+            />
         </Stack>
     );
 };
@@ -140,6 +121,15 @@ export default function ReviewModal({ isCreate }: ParamsT) {
         close();
     };
 
+    //reset state on close!
+    useEffect(() => {
+        if (isOpen) {
+            setRating(review?.rating ?? DEFAULT_RATING);
+            setBurgerName(review?.burgerName ?? "");
+            setOptionalNotes(review?.optionalNotes ?? "");
+        }
+    }, [isOpen, review]);
+
     return (
         <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth="sm">
             <DialogTitle>
@@ -159,7 +149,7 @@ export default function ReviewModal({ isCreate }: ParamsT) {
                         fullWidth
                     />
 
-                    {/*this would do a proper search for restaurants so that all reviews are properly conencted for a restaurant*/}
+                    {/*this would do a proper search for restaurants so that all reviews are properly conencted for a restaurant. maybe for the poc we can make this a dropdown with just a few restaurants??????*/}
                     {/*todo: mock this functionality if time*/}
                     <TextField
                         label="Restaurant name"
@@ -186,7 +176,7 @@ export default function ReviewModal({ isCreate }: ParamsT) {
                     </Button>
 
                     <TextField
-                        label="Additional Notes(optional)"
+                        label="Additional Notes (optional)"
                         value={optionalNotes}
                         onChange={(e) => setOptionalNotes(e.target.value)}
                         disabled={!isCreate}
@@ -202,7 +192,7 @@ export default function ReviewModal({ isCreate }: ParamsT) {
                     Cancel
                 </Button>
                 {isCreate && (
-                    <Button variant="contained" className="btn-primary" disableElevation>
+                    <Button variant="contained" className="btn-primary" disableElevation disabled={burgerName.length === 0}>
                         Submit Review
                     </Button>
                 )}

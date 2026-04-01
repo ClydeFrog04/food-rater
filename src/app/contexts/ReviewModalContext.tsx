@@ -40,6 +40,7 @@ export function ReviewModalContextProvider({
 
     const closeModal = () => {
         setIsOpen(false);
+        setReview(null);
     };
 
     return (
