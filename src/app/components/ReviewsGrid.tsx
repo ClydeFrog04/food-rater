@@ -71,20 +71,3 @@ export default async function ReviewsGrid() {
         </Container>
     );
 }
-
-/*
-{review.imageUrl ? (
-    <Box className="relative aspect-square w-full">
-        <Image
-            src={review.imageUrl}
-            alt="a picture of a burger"
-            fill
-            className="object-cover object-bottom"
-        />
-    </Box>
-) : (
-    <Box className="aspect-square w-full flex items-center justify-center bg-[#ebeae5]">
-        <HamburgerIcon className="w-1/2 h-1/2 stroke-gray-400" />
-    </Box>
-)}
- */

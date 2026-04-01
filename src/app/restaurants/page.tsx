@@ -1,0 +1,26 @@
+import type { RestaurantT } from "~/app/lib/RestaurantTypes";
+import axios from "axios";
+import { Container, Typography } from "@mui/material";
+import RestaurantsGrid from "~/app/components/RestaurantsGrid";
+
+async function getRestaurants(): Promise<RestaurantT[]> {
+    const res = await axios.get<RestaurantT[]>(
+        "http://localhost:3000/api/v1/restaurants",
+    );
+    if (res.status !== 200) throw new Error("Failed to fetch restaurants.");
+    return res.data;
+}
+
+export default async function Page(){
+    const restaurants = await getRestaurants();
+
+
+    return (
+        //todos: do we need a top padding like the other?
+        <Container >
+            <Typography variant="h5">Browse restaurants with burgers</Typography>
+            <RestaurantsGrid restaurants={restaurants} />
+        </Container>
+    )
+
+}

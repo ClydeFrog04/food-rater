@@ -131,6 +131,7 @@ export default function ReviewModal({ isCreate }: ParamsT) {
     }, [isOpen, review]);
 
     return (
+        //todo: max width might be better at xs or a fixed with, same for restaurant details modal
         <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth="sm">
             <DialogTitle>
                 <Typography>
