@@ -26,3 +26,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.btn-primary{
+  @apply
+  bg-frostedBlue
+  text-black
+  normal-case
+}

@@ -2,6 +2,8 @@ import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import Providers from "~/app/components/Providers";
+import TopBar from "~/app/components/Navigation/TopBar";
 
 export const metadata: Metadata = {
   title: "Kits Burger Kitchen",
@@ -18,10 +20,15 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>
-        <div id="root">{children}</div>
-      </body>
-    </html>
+      <html lang="en" className={`${geist.variable}`}>
+          <body>
+              <Providers>
+                  <div id="root">
+                      <TopBar/>
+                      {children}
+                  </div>
+              </Providers>
+          </body>
+      </html>
   );
 }
