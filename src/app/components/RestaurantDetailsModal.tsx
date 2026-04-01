@@ -46,7 +46,7 @@ export default function RestaurantDetailsModal({restaurant, onClose}: ParamsT){
                         {restaurant.address}, {restaurant.city}
                     </Typography>
                 </Box>
-                <Divider />
+                <Divider className="my-4"/>
                 <Box>
                     <Box className="mb-2 flex items-center gap-2">
                         <ClockIcon className="h-8 w-8 stroke-grey-300" />
@@ -73,7 +73,7 @@ export default function RestaurantDetailsModal({restaurant, onClose}: ParamsT){
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose}>Close</Button>
+                <Button onClick={onClose} className="btn-cancel">Close</Button>
             </DialogActions>
         </Dialog>
     );

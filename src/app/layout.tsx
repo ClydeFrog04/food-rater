@@ -6,6 +6,7 @@ import Providers from "~/app/components/Providers";
 import TopBar from "~/app/components/Navigation/TopBar";
 import HamburgerMenu from "~/app/components/Navigation/HamburgerMenu";
 import { Box } from "@mui/material";
+import ReviewModal from "~/app/components/ReviewModal";
 
 export const metadata: Metadata = {
     title: "Kits Burger Kitchen",
@@ -26,6 +27,7 @@ export default function RootLayout({
             <body>
                 <Providers>
                     <div id="root">
+                        <ReviewModal isCreate={true} />
                         <Box className="hidden md:block">
                             <TopBar />
                         </Box>

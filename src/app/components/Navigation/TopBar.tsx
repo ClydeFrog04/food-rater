@@ -14,14 +14,14 @@ import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 export default function TopBar() {
     const router = useRouter();
     const { data: session } = authClient.useSession();
-    const {openView, openCreate} = useReviewModal();
+    const { openView, openCreate } = useReviewModal();
 
     return (
         <AppBar elevation={0} position="static">
             <Toolbar className="flex justify-between">
                 <CatIcon
                     onClick={() => router.push("/")}
-                    className="cursor-pointer h-8 w-8"
+                    className="h-8 w-8 cursor-pointer"
                 />
                 <Box
                     id="page-links"
@@ -32,6 +32,9 @@ export default function TopBar() {
                         aria-label="Find other burger restaurants"
                         variant="contained"
                         className="btn-primary"
+                        onClick={() => {
+                            router.push("/restaurants");
+                        }}
                     >
                         Find Restaurants
                     </Button>

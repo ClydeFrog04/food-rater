@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <main>
-        <ReviewModal isCreate={true}/>
+        {/*<ReviewModal isCreate={true}/>*/}
         <ReviewsGrid/>
     </main>
   );

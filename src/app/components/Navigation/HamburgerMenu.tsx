@@ -76,7 +76,12 @@ export default function HamburgerMenu() {
                             primary="Add Review"
                         />
                     </ListItemButton>
-                    <ListItemButton onClick={() => setOpen(false)}>
+                    <ListItemButton
+                        onClick={() => {
+                            setOpen(false);
+                            router.push("/restaurants");
+                        }}
+                    >
                         <ListItemText
                             className="text-black"
                             primary="Find Restaurants"
