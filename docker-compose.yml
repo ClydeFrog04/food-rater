@@ -1,0 +1,59 @@
+version: "3.9"
+
+services:
+  #web app mvp
+  app:
+    build: .
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      BETTER_AUTH_SECRET: local-dev-secret-change-in-production
+      BETTER_AUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      # Stretch goal vars — uncomment when implementing
+      # DATABASE_URL: postgresql://postgres:password@db:5432/burger_rater
+      # AWS_REGION: us-east-1
+      # AWS_ACCESS_KEY_ID: ...
+      # AWS_SECRET_ACCESS_KEY: ...
+      # S3_BUCKET_NAME: burger-rater-images
+
+  # =====================
+  # Stretch goal: Postgres
+  # =====================
+  # db:
+  #   image: postgres:16-alpine
+  #   restart: always
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: burger_rater
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+
+  # =====================
+  # Stretch goal: Keycloak
+  # =====================
+  # keycloak:
+  #   image: quay.io/keycloak/keycloak:24.0
+  #   command: start-dev
+  #   environment:
+  #     KEYCLOAK_ADMIN: admin
+  #     KEYCLOAK_ADMIN_PASSWORD: admin
+  #   ports:
+  #     - "8080:8080"
+
+  # =====================
+  # Local email catching (Mailpit)
+  # =====================
+  mailpit:
+    image: axllent/mailpit
+    restart: always
+    ports:
+      - "8025:8025"  # Web UI — view caught emails at http://localhost:8025
+      - "1025:1025"  # SMTP — point Better Auth email at localhost:1025
+
+# volumes:
+#   postgres_data:

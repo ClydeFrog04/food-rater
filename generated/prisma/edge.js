@@ -181,7 +181,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/randi/burger-or-sushi-app/food-rater/generated/prisma",
+      "value": "/home/randi/code/food-rater/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -195,12 +195,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/randi/burger-or-sushi-app/food-rater/prisma/schema.prisma",
+    "sourceFilePath": "/home/randi/code/food-rater/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.19.2",

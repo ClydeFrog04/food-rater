@@ -5,11 +5,13 @@ import Image from "next/image";
 import { HamburgerIcon } from "lucide-react";
 import BurgerStarRating from "~/app/components/BurgerStarRating";
 
+export const dynamic = 'force-dynamic'
 async function getReviews(): Promise<ReviewT[]> {
     //Note for interview- next js extends fetch to add things like data caching and revalidation, but we lose the axios generic/similarity.
     //for the poc i like the <ReviewT[]> a bit better but in production we might use next fetch, or build our own axios with redis cache support!:]
+    const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
     const res = await axios.get<ReviewT[]>(
-        "http://localhost:3000/api/v1/reviews",
+        `${BASE_URL}/api/v1/reviews`,
     );
     if (res.status !== 200) throw new Error("Failed to fetch reviews.");
     return res.data;
