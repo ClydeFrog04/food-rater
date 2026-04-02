@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 //pun intended
 import { useState } from "react";
@@ -11,14 +11,17 @@ import {
     ListItemText,
     Toolbar,
 } from "@mui/material";
-import {CatIcon, SquareMenuIcon, XIcon} from "lucide-react";
-import {useRouter} from "next/navigation";
+import { CatIcon, SquareMenuIcon, XIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
+import { authClient } from "~/server/better-auth/client";
+import axios from "axios";
 
 export default function HamburgerMenu() {
     const [open, setOpen] = useState(false);
     const router = useRouter();
     const { openView, openCreate } = useReviewModal();
+    const { data: session } = authClient.useSession();
 
     return (
         <>
@@ -87,12 +90,67 @@ export default function HamburgerMenu() {
                             primary="Find Restaurants"
                         />
                     </ListItemButton>
-                    <ListItemButton onClick={() => setOpen(false)}>
-                        {/*todo adding session check and profile icon*/}
-                        <ListItemText className="text-black" primary="Login" />
-                    </ListItemButton>
+                    {session ? (
+                        <>
+                            <ListItemButton
+                                onClick={() => {
+                                    setOpen(false);
+                                    router.push("/profile");
+                                }}
+                            >
+                                <ListItemText
+                                    className="text-black"
+                                    primary="View Profile"
+                                />
+                            </ListItemButton>
+                            <ListItemButton
+                                onClick={async () => {
+                                    await Promise.all([
+                                        axios.post("/api/auth/signout"),
+                                        authClient.signOut(),
+                                    ]);
+                                    router.refresh();
+                                    router.push("/");
+                                }}
+                            >
+                                <ListItemText
+                                    className="text-black"
+                                    primary="Sign Out"
+                                />
+                            </ListItemButton>
+                        </>
+                    ) : (
+                        <ListItemButton
+                            onClick={() => {
+                                setOpen(false);
+                                router.push("/login");
+                            }}
+                        >
+                            <ListItemText
+                                className="text-black"
+                                primary="Login"
+                            />
+                        </ListItemButton>
+                    )}
                 </List>
             </Drawer>
         </>
     );
 }
+
+/*
+{session ? (
+                        <UserIcon onClick={() => router.push("/profile")} />
+                    ) : (
+                        <Button
+                            aria-label="login button"
+                            variant="contained"
+                            className="btn-primary"
+                            onClick={ () => {
+                                router.push("/login")
+                            }}
+                        >
+                            Login
+                        </Button>
+                    )}
+ */

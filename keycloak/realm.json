@@ -1,5 +1,9 @@
 {
     "realm": "kits-kitchen",
+    "attributes": {
+        "skipLogoutConfirmation": "true",
+        "frontchannel.logout.session.required": "false"
+    },
     "loginTheme": "kits-kitchen",
     "ssoSessionIdleTimeout": 1800,
     "ssoSessionMaxLifespan": 36000,
@@ -92,7 +96,7 @@
             "credentials": [
                 {
                     "type": "password",
-                    "value": "testpass1!",
+                    "value": "testpass1/",
                     "temporary": false
                 }
             ],

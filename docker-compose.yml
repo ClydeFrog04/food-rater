@@ -9,6 +9,10 @@ services:
       BETTER_AUTH_SECRET: local-dev-secret-change-in-production
       BETTER_AUTH_URL: http://localhost:3000
       NEXT_PUBLIC_APP_URL: http://localhost:3000
+      KEYCLOAK_INTERNAL_URL: http://keycloak:8080
+      NEXT_PUBLIC_KEYCLOAK_URL: http://localhost:8080
+    depends_on:
+      - keycloak
       # Stretch goal vars — uncomment when implementing
       # DATABASE_URL: postgresql://postgres:password@db:5432/burger_rater
       # AWS_REGION: us-east-1
@@ -35,11 +39,15 @@ services:
   # Stretch goal: Keycloak
   # =====================
   keycloak:
-    image: quay.io/keycloak/keycloak:24.0
+    image: quay.io/keycloak/keycloak:23.0
     command: start-dev --import-realm
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_BACKCHANNEL: false
     ports:
       - "8080:8080"
     volumes:

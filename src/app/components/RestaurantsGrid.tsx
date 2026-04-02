@@ -8,11 +8,12 @@ import RestaurantDetailsModal from "~/app/components/RestaurantDetailsModal";
 
 type ParamsT = {
     restaurants: RestaurantT[];
-}
+};
 
 export default function RestaurantsGrid({ restaurants }: ParamsT) {
-    const [selectedRestaurant, setSelectedRestaurant] = useState<RestaurantT | null>(null);
-    
+    const [selectedRestaurant, setSelectedRestaurant] =
+        useState<RestaurantT | null>(null);
+
     return (
         <Container>
             <Grid container spacing={2}>
@@ -31,5 +32,4 @@ export default function RestaurantsGrid({ restaurants }: ParamsT) {
             />
         </Container>
     );
-    
 }

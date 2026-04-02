@@ -10,6 +10,7 @@ import { CatIcon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { authClient } from "~/server/better-auth/client";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
+import axios from "axios";
 
 export default function TopBar() {
     const router = useRouter();
@@ -47,12 +48,33 @@ export default function TopBar() {
                         Add Review
                     </Button>
                     {session ? (
-                        <UserIcon onClick={() => router.push("/profile")} />
+                        <>
+                            <UserIcon
+                                className="cursor-pointer"
+                                onClick={() => router.push("/profile")}
+                            />
+                            <Button
+                                className="btn-primary"
+                                onClick={async () => {
+                                    await Promise.all([
+                                        axios.post("/api/auth/signout"),
+                                        authClient.signOut(),
+                                    ]);
+                                    router.refresh();
+                                    router.push("/");
+                                }}
+                            >
+                                Sign Out
+                            </Button>
+                        </>
                     ) : (
                         <Button
                             aria-label="login button"
                             variant="contained"
                             className="btn-primary"
+                            onClick={() => {
+                                router.push("/login");
+                            }}
                         >
                             Login
                         </Button>

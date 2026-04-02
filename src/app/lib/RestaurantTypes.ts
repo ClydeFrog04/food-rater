@@ -14,5 +14,4 @@ export type RestaurantT = {
     address: string;
     city: string;
     hours: HoursT;
-
-}
+};

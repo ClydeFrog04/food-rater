@@ -55,7 +55,9 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
                 emptyIcon={
                     <HamburgerIcon className="stroke-grey-300" size={28} />
                 }
-                onChange={(newRating) => onChange({ ...rating, taste: newRating })}
+                onChange={(newRating) =>
+                    onChange({ ...rating, taste: newRating })
+                }
             />
             <BurgerStarRating
                 label="Texture"
@@ -74,7 +76,9 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
                         size={28}
                     />
                 }
-                onChange={(newRating) => onChange({ ...rating, texture: newRating })}
+                onChange={(newRating) =>
+                    onChange({ ...rating, texture: newRating })
+                }
             />
             <BurgerStarRating
                 label="Presentation"
@@ -82,18 +86,14 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
                 value={rating.presentation}
                 disabled={!isCreate}
                 icon={
-                    <ChefHatIcon
-                        className="stroke-goldenApricot"
-                        size={28}
-                    />
+                    <ChefHatIcon className="stroke-goldenApricot" size={28} />
                 }
                 emptyIcon={
-                    <ChefHatIcon
-                        className="stroke-grey-300"
-                        size={28}
-                    />
+                    <ChefHatIcon className="stroke-grey-300" size={28} />
                 }
-                onChange={(newRating) => onChange({ ...rating, presentation: newRating })}
+                onChange={(newRating) =>
+                    onChange({ ...rating, presentation: newRating })
+                }
             />
         </Stack>
     );
@@ -193,7 +193,12 @@ export default function ReviewModal({ isCreate }: ParamsT) {
                     Cancel
                 </Button>
                 {isCreate && (
-                    <Button variant="contained" className="btn-primary" disableElevation disabled={burgerName.length === 0}>
+                    <Button
+                        variant="contained"
+                        className="btn-primary"
+                        disableElevation
+                        disabled={burgerName.length === 0}
+                    >
                         Submit Review
                     </Button>
                 )}

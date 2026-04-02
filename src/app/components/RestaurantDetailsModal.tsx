@@ -17,7 +17,7 @@ import { ClockIcon, MapPinIcon } from "lucide-react";
 type ParamsT = {
     restaurant: RestaurantT | null;
     onClose: () => void;
-}
+};
 
 const DAYS_OF_WEEK = [
     "monday",
@@ -29,10 +29,11 @@ const DAYS_OF_WEEK = [
     "sunday",
 ] as const;
 
-
-
-export default function RestaurantDetailsModal({restaurant, onClose}: ParamsT){
-    if(!restaurant) return null;
+export default function RestaurantDetailsModal({
+    restaurant,
+    onClose,
+}: ParamsT) {
+    if (!restaurant) return null;
 
     return (
         <Dialog open={!!restaurant} onClose={onClose} fullWidth maxWidth="sm">
@@ -46,14 +47,16 @@ export default function RestaurantDetailsModal({restaurant, onClose}: ParamsT){
                         {restaurant.address}, {restaurant.city}
                     </Typography>
                 </Box>
-                <Divider className="my-4"/>
+                <Divider className="my-4" />
                 <Box>
                     <Box className="mb-2 flex items-center gap-2">
                         <ClockIcon className="h-8 w-8 stroke-grey-300" />
-                        <Typography variant="body2">Hours of Operation</Typography>
+                        <Typography variant="body2">
+                            Hours of Operation
+                        </Typography>
                     </Box>
                     <Stack spacing={0.5}>
-                        {DAYS_OF_WEEK.map((day) =>{
+                        {DAYS_OF_WEEK.map((day) => {
                             return (
                                 <Box key={day} className="flex justify-between">
                                     <Typography
@@ -73,7 +76,9 @@ export default function RestaurantDetailsModal({restaurant, onClose}: ParamsT){
                 </Box>
             </DialogContent>
             <DialogActions>
-                <Button onClick={onClose} className="btn-cancel">Close</Button>
+                <Button onClick={onClose} className="btn-cancel">
+                    Close
+                </Button>
             </DialogActions>
         </Dialog>
     );

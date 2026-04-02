@@ -1,4 +1,4 @@
-import type {Config} from 'tailwindcss';
+import type { Config } from "tailwindcss";
 import { AppColours } from "./src/app/lib/AppColours";
 import colors from "tailwindcss/colors";
 

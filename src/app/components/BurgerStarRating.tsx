@@ -26,9 +26,9 @@ export default function BurgerStarRating({
         <Stack
             direction={{ xs: "column", sm: "row" }}
             alignItems={{ xs: "flex-start", sm: "center" }}
-            gap={{xs: 0, sm: 2}}
+            gap={{ xs: 0, sm: 2 }}
         >
-        {/*<Stack direction="row" alignItems="center" gap={2}>*/}
+            {/*<Stack direction="row" alignItems="center" gap={2}>*/}
             <Typography variant="body2" width={100}>
                 {label}
             </Typography>

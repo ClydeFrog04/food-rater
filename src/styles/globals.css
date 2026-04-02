@@ -3,24 +3,30 @@
 @tailwind utilities;
 
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-sans:
+        var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 :root {
-  --background: #f3f3f3;
-  --foreground: #0a0a0a;
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --background: #f3f3f3;
+    --foreground: #0a0a0a;
+    --font-sans:
+        var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
 }
 
 /*@media (prefers-color-scheme: dark) {*/
@@ -31,21 +37,15 @@ body {
 /*}*/
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
 }
 
-.btn-primary{
-  @apply
-  bg-frostedBlue
-  text-black
-  normal-case
+.btn-primary {
+    @apply bg-frostedBlue normal-case text-black;
 }
 
-.btn-cancel{
-  @apply
-  bg-grey-300
-  text-black
-  normal-case
+.btn-cancel {
+    @apply bg-grey-300 normal-case text-black;
 }

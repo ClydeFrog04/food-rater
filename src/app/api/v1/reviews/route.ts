@@ -1,6 +1,5 @@
 import type { ReviewT } from "~/app/lib/ReviewTypes";
 
-
 export async function GET(): Promise<Response> {
     const data: ReviewT[] = [
         {

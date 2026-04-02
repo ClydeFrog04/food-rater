@@ -5,14 +5,12 @@ import Image from "next/image";
 import { HamburgerIcon } from "lucide-react";
 import BurgerStarRating from "~/app/components/BurgerStarRating";
 
-export const dynamic = 'force-dynamic'
+export const dynamic = "force-dynamic";
 async function getReviews(): Promise<ReviewT[]> {
     //Note for interview- next js extends fetch to add things like data caching and revalidation, but we lose the axios generic/similarity.
     //for the poc i like the <ReviewT[]> a bit better but in production we might use next fetch, or build our own axios with redis cache support!:]
-    const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
-    const res = await axios.get<ReviewT[]>(
-        `${BASE_URL}/api/v1/reviews`,
-    );
+    const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+    const res = await axios.get<ReviewT[]>(`${BASE_URL}/api/v1/reviews`);
     if (res.status !== 200) throw new Error("Failed to fetch reviews.");
     return res.data;
 }
@@ -40,7 +38,7 @@ export default async function ReviewsGrid() {
                                         />
                                     </Box>
                                 ) : (
-                                    <Box className="flex aspect-square w-full items-center justify-center bg-[#ebeae5] max-w-[200px]">
+                                    <Box className="flex aspect-square w-full max-w-[200px] items-center justify-center bg-[#ebeae5]">
                                         <HamburgerIcon className="h-1/2 w-1/2 stroke-gray-400" />
                                     </Box>
                                 )}

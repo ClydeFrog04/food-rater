@@ -7,7 +7,6 @@ import {
 import { AppColours } from "~/app/lib/AppColours";
 import { ReviewModalContextProvider } from "~/app/contexts/ReviewModalContext";
 
-
 const theme = createTheme({
     palette: {
         mode: "light",
@@ -16,12 +15,13 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: "'Roboto', sans-serif",
-        h1: {fontSize: "2rem", fontWeight: 500, color: "white"},
+        h1: { fontSize: "2rem", fontWeight: 500, color: "white" },
     },
 });
 
-
-export default function Providers({children}: Readonly<{ children: React.ReactNode }>) {
+export default function Providers({
+    children,
+}: Readonly<{ children: React.ReactNode }>) {
     return (
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
