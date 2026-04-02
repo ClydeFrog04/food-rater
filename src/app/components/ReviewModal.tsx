@@ -22,8 +22,10 @@ import type { RatingT, ReviewT } from "~/app/lib/ReviewTypes";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 import BurgerStarRating from "~/app/components/BurgerStarRating";
 
+//in a real production app, we might reuse this, but change some of the styling so it looks less like a form and more like a proper view review:]
+//time constraint, we just made it all disabled
 type ParamsT = {
-    isCreate: boolean;
+    isCreate?: boolean;
 };
 
 type RatingParamsT = {
@@ -99,8 +101,8 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
     );
 };
 
-export default function ReviewModal({ isCreate }: ParamsT) {
-    const { review, isOpen, closeModal } = useReviewModal();
+export default function ReviewModal({}: ParamsT) {
+    const { review, isOpen, closeModal, isCreate } = useReviewModal();
     const [rating, setRating] = useState<RatingT>(
         review?.rating ?? DEFAULT_RATING,
     );
@@ -165,16 +167,18 @@ export default function ReviewModal({ isCreate }: ParamsT) {
                         onChange={setRating}
                     />
 
-                    <Button
-                        variant="outlined"
-                        className="btn-primary"
-                        component="label"
-                        disabled={!isCreate}
-                        fullWidth
-                    >
-                        Upload an image of your burger!
-                        <input type="file" accept="image/*" hidden />
-                    </Button>
+                    {isCreate && (
+                        <Button
+                            variant="outlined"
+                            className="btn-primary"
+                            component="label"
+                            disabled={!isCreate}
+                            fullWidth
+                        >
+                            Upload an image of your burger!
+                            <input type="file" accept="image/*" hidden />
+                        </Button>
+                    )}
 
                     <TextField
                         label="Additional Notes (optional)"

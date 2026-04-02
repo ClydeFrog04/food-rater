@@ -12,7 +12,7 @@ async function getKeycloakAdminToken() {
                 client_id: "admin-cli",
                 username: "admin",
                 password: "admin",
-                grant_type: "password",
+                // grant_type: "password",
             }),
         },
     );

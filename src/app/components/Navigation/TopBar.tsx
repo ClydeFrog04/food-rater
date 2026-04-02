@@ -5,20 +5,67 @@ User avatar or profile indicator on the far right — shows you're logged in, cl
 On mobile, a hamburger icon replaces the navigation items
  */
 "use client";
-import { AppBar, Box, Button, Toolbar } from "@mui/material";
+import {
+    AppBar,
+    Box,
+    Button,
+    Menu,
+    MenuItem,
+    Stack,
+    Toolbar,
+} from "@mui/material";
 import { CatIcon, UserIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { authClient } from "~/server/better-auth/client";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 import axios from "axios";
+import { useRef, useState } from "react";
 
 export default function TopBar() {
     const router = useRouter();
     const { data: session } = authClient.useSession();
     const { openView, openCreate } = useReviewModal();
+    const [menuAnchorEl, setMenuAnchorEl] = useState<
+        HTMLElement | SVGElement | null
+    >(null);
 
     return (
         <AppBar elevation={0} position="static">
+            <Menu
+                open={!!menuAnchorEl}
+                anchorEl={menuAnchorEl}
+                onClose={() => setMenuAnchorEl(null)}
+                slotProps={{
+                    paper: {
+                        className: "min-w-[200px] p-4",
+                    },
+                }}
+            >
+                <Stack spacing={1}>
+                    <MenuItem
+                        onClick={() => {
+                            setMenuAnchorEl(null);
+                            router.push("/profile");
+                        }}
+                    >
+                        Profile
+                    </MenuItem>
+                    <MenuItem
+                        className="btn-primary"
+                        onClick={async () => {
+                            await Promise.all([
+                                axios.post("/api/auth/signout"),
+                                authClient.signOut(),
+                            ]);
+                            setMenuAnchorEl(null);
+                            router.refresh();
+                            router.push("/");
+                        }}
+                    >
+                        Sign Out
+                    </MenuItem>
+                </Stack>
+            </Menu>
             <Toolbar className="flex justify-between">
                 <CatIcon
                     onClick={() => router.push("/")}
@@ -48,25 +95,12 @@ export default function TopBar() {
                         Add Review
                     </Button>
                     {session ? (
-                        <>
-                            <UserIcon
-                                className="cursor-pointer"
-                                onClick={() => router.push("/profile")}
-                            />
-                            <Button
-                                className="btn-primary"
-                                onClick={async () => {
-                                    await Promise.all([
-                                        axios.post("/api/auth/signout"),
-                                        authClient.signOut(),
-                                    ]);
-                                    router.refresh();
-                                    router.push("/");
-                                }}
-                            >
-                                Sign Out
-                            </Button>
-                        </>
+                        <UserIcon
+                            className="cursor-pointer"
+                            onClick={(event) => {
+                                setMenuAnchorEl(event.currentTarget);
+                            }}
+                        />
                     ) : (
                         <Button
                             aria-label="login button"

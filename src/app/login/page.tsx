@@ -107,22 +107,3 @@ export default function LoginPage() {
         </Container>
     );
 }
-/*
-
-
-<Typography variant="body2" textAlign="center">
-    Don't have an account?{" "}
-    <Typography
-        component="a"
-        href="/register"
-        variant="body2"
-        color="primary"
-    >
-        Register
-    </Typography>
-</Typography>
-</Stack>
-</Box>
-</Container>
-);
-}*/

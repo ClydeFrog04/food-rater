@@ -1,8 +1,13 @@
 import { betterAuth } from "better-auth";
-import { prismaAdapter } from "better-auth/adapters/prisma";
-import { env } from "~/env";
-import { db } from "~/server/db";
 import { genericOAuth } from "better-auth/plugins";
+import { memoryAdapter } from "better-auth/adapters/memory"
+
+const db = {
+    user: [],
+    session: [],
+    account: [],
+    verification: [],
+}
 
 export const auth = betterAuth({
     baseURL: process.env.BETTER_AUTH_URL,
@@ -10,6 +15,8 @@ export const auth = betterAuth({
     emailAndPassword: {
         enabled: true,
     },
+    database: memoryAdapter(db),
+
     plugins: [
         genericOAuth({
             config: [
@@ -26,5 +33,20 @@ export const auth = betterAuth({
         }),
     ],
 });
+
+const seedDemoUser = async () => {
+    try {
+        await auth.api.signUpEmail({
+            body: {
+                email: "kit@thisiskitskitchen.com",
+                password: "kitpass1/",
+                name: "Kit Egan",
+            }
+        })
+    } catch {
+    }
+}
+
+void seedDemoUser()
 
 export type Session = typeof auth.$Infer.Session;

@@ -26,7 +26,6 @@ export function ReviewModalContextProvider({
     const [review, setReview] = useState<ReviewT | null>(null);
 
     const openCreate = () => {
-        console.log("OPENING");
         setReview(null);
         setIsCreate(true);
         setIsOpen(true);
