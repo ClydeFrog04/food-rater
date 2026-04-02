@@ -24,9 +24,6 @@ import BurgerStarRating from "~/app/components/BurgerStarRating";
 
 //in a real production app, we might reuse this, but change some of the styling so it looks less like a form and more like a proper view review:]
 //time constraint, we just made it all disabled
-type ParamsT = {
-    isCreate?: boolean;
-};
 
 type RatingParamsT = {
     isCreate: boolean;
@@ -101,7 +98,7 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
     );
 };
 
-export default function ReviewModal({}: ParamsT) {
+export default function ReviewModal() {
     const { review, isOpen, closeModal, isCreate } = useReviewModal();
     const [rating, setRating] = useState<RatingT>(
         review?.rating ?? DEFAULT_RATING,

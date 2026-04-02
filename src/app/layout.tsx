@@ -27,7 +27,7 @@ export default function RootLayout({
             <body>
                 <Providers>
                     <div id="root">
-                        <ReviewModal isCreate={true} />
+                        <ReviewModal />
                         <Box className="hidden md:block">
                             <TopBar />
                         </Box>
