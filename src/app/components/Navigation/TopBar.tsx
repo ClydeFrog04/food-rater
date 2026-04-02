@@ -57,9 +57,9 @@ export default function TopBar() {
                                 axios.post("/api/auth/signout"),
                                 authClient.signOut(),
                             ]);
-                            setMenuAnchorEl(null);
                             router.refresh();
                             router.push("/");
+                            setMenuAnchorEl(null);
                         }}
                     >
                         Sign Out

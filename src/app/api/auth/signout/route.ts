@@ -8,11 +8,10 @@ async function getKeycloakAdminToken() {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: new URLSearchParams({
-                grant_type: "client_credentials",
                 client_id: "admin-cli",
                 username: "admin",
                 password: "admin",
-                // grant_type: "password",
+                grant_type: "password",
             }),
         },
     );
