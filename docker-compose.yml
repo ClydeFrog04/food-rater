@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
   #web app mvp
   app:
@@ -36,14 +34,16 @@ services:
   # =====================
   # Stretch goal: Keycloak
   # =====================
-  # keycloak:
-  #   image: quay.io/keycloak/keycloak:24.0
-  #   command: start-dev
-  #   environment:
-  #     KEYCLOAK_ADMIN: admin
-  #     KEYCLOAK_ADMIN_PASSWORD: admin
-  #   ports:
-  #     - "8080:8080"
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    command: start-dev --import-realm
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json
 
   # =====================
   # Local email catching (Mailpit)

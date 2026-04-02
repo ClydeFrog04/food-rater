@@ -1,0 +1,122 @@
+{
+    "realm": "kits-kitchen",
+    "loginTheme": "kits-kitchen",
+    "ssoSessionIdleTimeout": 1800,
+    "ssoSessionMaxLifespan": 36000,
+    "accessTokenLifespan": 300,
+    "accessCodeLifespan": 60,
+    "passwordPolicy": "hashIterations(10) and notEmail(undefined) and notUsername(undefined) and length(8) and digits(1) and specialChars(1)",
+    "enabled": true,
+    "sslRequired": "none",
+    "registrationAllowed": true,
+    "resetPasswordAllowed": true,
+    "verifyEmail": false,
+    "loginWithEmailAllowed": true,
+    "smtpServer": {
+        "host": "mailpit",
+        "port": "1025",
+        "from": "noreply@kits-kitchen.local",
+        "fromDisplayName": "Kits Kitchen",
+        "ssl": "false",
+        "starttls": "false",
+        "auth": "false"
+    },
+    "roles": {
+        "realm": [
+            {
+                "name": "admin",
+                "description": "Full access to all features"
+            },
+            {
+                "name": "user",
+                "description": "Standard user access"
+            }
+        ]
+    },
+    "defaultRoles": [
+        "user"
+    ],
+    "clients": [
+        {
+            "clientId": "kits-kitchen-web",
+            "enabled": true,
+            "publicClient": true,
+            "directAccessGrantsEnabled": true,
+            "redirectUris": [
+                "http://localhost:3000/*",
+                "http://localhost:30080/*"
+            ],
+            "webOrigins": [
+                "http://localhost:3000",
+                "http://localhost:30080"
+            ],
+            "protocol": "openid-connect",
+            "standardFlowEnabled": true,
+            "fullScopeAllowed": true
+        }
+    ],
+    "scopeMappings": [
+        {
+            "client": "kits-kitchen-web",
+            "roles": [
+                "admin",
+                "user"
+            ]
+        }
+    ],
+    "users": [
+        {
+            "username": "admin",
+            "enabled": true,
+            "email": "admin@kits-kitchen.local",
+            "firstName": "Admin",
+            "lastName": "User",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "adminpass1!",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "admin",
+                "user"
+            ]
+        },
+        {
+            "username": "testuser",
+            "enabled": true,
+            "email": "test@example.com",
+            "firstName": "Test",
+            "lastName": "User",
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "testpass1!",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "user"
+            ]
+        },
+        {
+            "username": "kit",
+            "enabled": true,
+            "email": "kit@thisiskitskitchen.com",
+            "firstName": "kit",
+            "lastName": "egan",
+            "emailVerified": true,
+            "credentials": [
+                {
+                    "type": "password",
+                    "value": "kitpass1/",
+                    "temporary": false
+                }
+            ],
+            "realmRoles": [
+                "user"
+            ]
+        }
+    ]
+}
