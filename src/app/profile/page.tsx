@@ -10,7 +10,7 @@ export default function ProfilePage() {
 
     return (
         <Box className="flex w-full justify-center">
-            <Typography>Viewing profile for: {session.user.name}</Typography>
+            <Typography className="pt-6 text-xl">Viewing profile for: {session.user.name}</Typography>
         </Box>
     );
 }

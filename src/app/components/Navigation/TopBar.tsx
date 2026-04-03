@@ -15,7 +15,7 @@ import {
     Toolbar,
 } from "@mui/material";
 import { CatIcon, UserIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { authClient } from "~/server/better-auth/client";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 import axios from "axios";
@@ -23,6 +23,7 @@ import { useRef, useState } from "react";
 
 export default function TopBar() {
     const router = useRouter();
+    const path = usePathname();
     const { data: session } = authClient.useSession();
     const { openView, openCreate } = useReviewModal();
     const [menuAnchorEl, setMenuAnchorEl] = useState<
@@ -53,13 +54,14 @@ export default function TopBar() {
                     <MenuItem
                         className="btn-primary"
                         onClick={async () => {
+                            setMenuAnchorEl(null);
+
                             await Promise.all([
                                 axios.post("/api/auth/signout"),
                                 authClient.signOut(),
                             ]);
                             router.refresh();
                             router.push("/");
-                            setMenuAnchorEl(null);
                         }}
                     >
                         Sign Out
@@ -76,37 +78,41 @@ export default function TopBar() {
                     aria-label="page navigation"
                     className="flex gap-4"
                 >
-                    <Button
-                        aria-label="view reviews from other users"
-                        variant="contained"
-                        className="btn-primary"
-                        onClick={() => {
-                            router.push("/");
-                        }}
-                    >
-                        See Other Reviews
-                    </Button>
-                    <Button
-                        aria-label="Find other burger restaurants"
-                        variant="contained"
-                        className="btn-primary"
-                        onClick={() => {
-                            router.push("/restaurants");
-                        }}
-                    >
-                        Find Restaurants
-                    </Button>
-                    <Button
-                        aria-label="add burger review"
-                        variant="contained"
-                        className="btn-primary"
-                        onClick={openCreate}
-                    >
-                        Add Review
-                    </Button>
+                    {!path.includes("login") && (
+                        <>
+                            <Button
+                                aria-label="view reviews from other users"
+                                variant="contained"
+                                className="btn-primary"
+                                onClick={() => {
+                                    router.push("/");
+                                }}
+                            >
+                                See Other Reviews
+                            </Button>
+                            <Button
+                                aria-label="Find other burger restaurants"
+                                variant="contained"
+                                className="btn-primary"
+                                onClick={() => {
+                                    router.push("/restaurants");
+                                }}
+                            >
+                                Find Restaurants
+                            </Button>
+                            <Button
+                                aria-label="add burger review"
+                                variant="contained"
+                                className="btn-primary"
+                                onClick={openCreate}
+                            >
+                                Add Review
+                            </Button>
+                        </>
+                    )}
                     {session ? (
                         <UserIcon
-                            className="cursor-pointer"
+                            className="cursor-pointer mt-1"
                             onClick={(event) => {
                                 setMenuAnchorEl(event.currentTarget);
                             }}
