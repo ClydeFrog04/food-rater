@@ -56,12 +56,12 @@ services:
   # =====================
   # Local email catching (Mailpit)
   # =====================
-  mailpit:
-    image: axllent/mailpit
-    restart: always
-    ports:
-      - "8025:8025"  # Web UI — view caught emails at http://localhost:8025
-      - "1025:1025"  # SMTP — point Better Auth email at localhost:1025
+#  mailpit:
+#    image: axllent/mailpit
+#    restart: always
+#    ports:
+#      - "8025:8025"  # Web UI — view caught emails at http://localhost:8025
+#      - "1025:1025"  # SMTP — point Better Auth email at localhost:1025
 
 # volumes:
 #   postgres_data:

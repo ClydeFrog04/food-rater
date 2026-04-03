@@ -77,6 +77,16 @@ export default function TopBar() {
                     className="flex gap-4"
                 >
                     <Button
+                        aria-label="view reviews from other users"
+                        variant="contained"
+                        className="btn-primary"
+                        onClick={() => {
+                            router.push("/");
+                        }}
+                    >
+                        See Other Reviews
+                    </Button>
+                    <Button
                         aria-label="Find other burger restaurants"
                         variant="contained"
                         className="btn-primary"

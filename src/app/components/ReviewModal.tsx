@@ -1,5 +1,6 @@
 "use client";
 import {
+    Box,
     Button,
     Container,
     Dialog,
@@ -21,6 +22,8 @@ import {
 import type { RatingT, ReviewT } from "~/app/lib/ReviewTypes";
 import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 import BurgerStarRating from "~/app/components/BurgerStarRating";
+import Image from "next/image";
+import clsx from "clsx";
 
 //in a real production app, we might reuse this, but change some of the styling so it looks less like a form and more like a proper view review:]
 //time constraint, we just made it all disabled
@@ -104,20 +107,22 @@ export default function ReviewModal() {
         review?.rating ?? DEFAULT_RATING,
     );
     const [burgerName, setBurgerName] = useState(review?.burgerName ?? "");
+    const [restaurantName, setRestaurantName] = useState(review?.restaurantId ?? "");
+
     const [optionalNotes, setOptionalNotes] = useState(
         review?.optionalNotes ?? "",
     );
 
     const handleSubmit = async () => {
         //mock review post to api for poc!
-        const payload = { ...rating, burgerName, optionalNotes: optionalNotes };
+        const payload = { rating: rating, burgerName, optionalNotes: optionalNotes };
         console.log("Submitting review:", payload);
         await fetch("/api/v1/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
         });
-        close();
+        closeModal();
     };
 
     //reset state on close!
@@ -126,16 +131,18 @@ export default function ReviewModal() {
             setRating(review?.rating ?? DEFAULT_RATING);
             setBurgerName(review?.burgerName ?? "");
             setOptionalNotes(review?.optionalNotes ?? "");
+            setRestaurantName(review?.restaurantId ?? "");
         }
     }, [isOpen, review]);
 
+    //todo: also need to add the image of the burger when viewing the review
     return (
         //todo: max width might be better at xs or a fixed with, same for restaurant details modal
         <Dialog open={isOpen} onClose={closeModal} fullWidth maxWidth="sm">
             <DialogTitle>
-                <Typography>
+                <Typography className="text-lg">
                     {/*todo for the non create, we could grab the name of the review and change the text to "Viewing {userName}'s thoughts!*/}
-                    {isCreate ? "Review a burger!" : "Viewing Review"}
+                    {isCreate ? "Review a burger!" : `Viewing Review`}
                 </Typography>
             </DialogTitle>
 
@@ -153,8 +160,9 @@ export default function ReviewModal() {
                     {/*todo: mock this functionality if time*/}
                     <TextField
                         label="Restaurant name"
-                        value="Kits Kitchen"
+                        value={restaurantName}
                         disabled={!isCreate}
+                        onChange={(e) => setRestaurantName(e.target.value)}
                         fullWidth
                     />
 
@@ -177,15 +185,50 @@ export default function ReviewModal() {
                         </Button>
                     )}
 
-                    <TextField
-                        label="Additional Notes (optional)"
-                        value={optionalNotes}
-                        onChange={(e) => setOptionalNotes(e.target.value)}
-                        disabled={!isCreate}
-                        multiline
-                        rows={5}
-                        fullWidth
-                    />
+                    <Box
+                        className={clsx(
+                            "",
+                            review?.imageUrl &&
+                                "flex h-[200px] flex-col justify-between gap-2 sm:flex-row",
+                        )}
+                    >
+                        <TextField
+                            label="Additional Notes (optional)"
+                            value={optionalNotes}
+                            onChange={(e) => setOptionalNotes(e.target.value)}
+                            disabled={!isCreate}
+                            multiline
+                            className={clsx(
+                                "w-full",
+                                review?.imageUrl && "w-1/2",
+                            )}
+                            sx={{
+                                ...(review?.imageUrl && {
+                                    height: "100%",
+                                    "& .MuiInputBase-root": {
+                                        height: "100%",
+                                        alignItems: "flex-start",
+                                        "& textarea": {
+                                            height: "100% !important",
+                                            overflow: "auto !important",
+                                        },
+                                    },
+                                }),
+                            }}
+                        />
+                        {review?.imageUrl && (
+                            <Box className="flex h-[200px] w-full justify-center sm:w-1/2">
+                                <Box className="relative aspect-square w-[200px]">
+                                    <Image
+                                        src={review.imageUrl}
+                                        alt="a picture of a burger"
+                                        fill
+                                        className="rounded-[10px] object-cover object-bottom"
+                                    />
+                                </Box>
+                            </Box>
+                        )}
+                    </Box>
                 </Stack>
             </DialogContent>
 
@@ -199,6 +242,7 @@ export default function ReviewModal() {
                         className="btn-primary"
                         disableElevation
                         disabled={burgerName.length === 0}
+                        onClick={handleSubmit}
                     >
                         Submit Review
                     </Button>
