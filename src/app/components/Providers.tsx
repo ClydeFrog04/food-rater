@@ -6,6 +6,7 @@ import {
 } from "@mui/material/styles";
 import { AppColours } from "~/app/lib/AppColours";
 import { ReviewModalContextProvider } from "~/app/contexts/ReviewModalContext";
+import { ReviewsContextProvider } from "~/app/contexts/ReviewsContext";
 
 const theme = createTheme({
     palette: {
@@ -26,7 +27,7 @@ export default function Providers({
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
                 <ReviewModalContextProvider>
-                    {children}
+                    <ReviewsContextProvider>{children}</ReviewsContextProvider>
                 </ReviewModalContextProvider>
             </ThemeProvider>
         </StyledEngineProvider>

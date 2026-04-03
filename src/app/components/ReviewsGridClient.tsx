@@ -1,17 +1,11 @@
 "use client"
-import { Box, Card, Container, Grid, Typography } from "@mui/material";
-import { HamburgerIcon } from "lucide-react";
-import BurgerStarRating from "~/app/components/BurgerStarRating";
-import { useReviewModal } from "~/app/contexts/ReviewModalContext";
-import type { ReviewT } from "~/app/lib/ReviewTypes";
+import { Container, Grid} from "@mui/material";
 import { ReviewPreviewCard } from "~/app/components/ReviewPreviewCard";
+import { useReviews } from "~/app/contexts/ReviewsContext";
 
-type Props = {
-    reviews: ReviewT[];
-};
 
-export default function ReviewsGridClient({ reviews }: Props) {
-
+export default function ReviewsGridClient() {
+    const {reviews} = useReviews();
     return (
         <Container className="pt-4">
             <Grid container spacing={2}>

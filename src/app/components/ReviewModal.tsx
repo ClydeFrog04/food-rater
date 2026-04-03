@@ -24,6 +24,7 @@ import { useReviewModal } from "~/app/contexts/ReviewModalContext";
 import BurgerStarRating from "~/app/components/BurgerStarRating";
 import Image from "next/image";
 import clsx from "clsx";
+import { useReviews } from "~/app/contexts/ReviewsContext";
 
 //in a real production app, we might reuse this, but change some of the styling so it looks less like a form and more like a proper view review:]
 //time constraint, we just made it all disabled
@@ -103,11 +104,14 @@ const BurgerRating = ({ isCreate, rating, onChange }: RatingParamsT) => {
 
 export default function ReviewModal() {
     const { review, isOpen, closeModal, isCreate } = useReviewModal();
+    const { refreshData } = useReviews();
     const [rating, setRating] = useState<RatingT>(
         review?.rating ?? DEFAULT_RATING,
     );
     const [burgerName, setBurgerName] = useState(review?.burgerName ?? "");
-    const [restaurantName, setRestaurantName] = useState(review?.restaurantId ?? "");
+    const [restaurantName, setRestaurantName] = useState(
+        review?.restaurantId ?? "",
+    );
 
     const [optionalNotes, setOptionalNotes] = useState(
         review?.optionalNotes ?? "",
@@ -115,13 +119,17 @@ export default function ReviewModal() {
 
     const handleSubmit = async () => {
         //mock review post to api for poc!
-        const payload = { rating: rating, burgerName, optionalNotes: optionalNotes };
-        console.log("Submitting review:", payload);
+        const payload = {
+            rating: rating,
+            burgerName,
+            optionalNotes: optionalNotes,
+        };
         await fetch("/api/v1/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
         });
+        await refreshData();
         closeModal();
     };
 
