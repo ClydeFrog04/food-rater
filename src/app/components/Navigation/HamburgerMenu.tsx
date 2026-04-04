@@ -65,7 +65,10 @@ export default function HamburgerMenu() {
                     >
                         <XIcon className="stroke-current" />
                     </ListItemButton>
-                    <ListItemButton onClick={() => setOpen(false)}>
+                    <ListItemButton onClick={() => {
+                        router.push("/");
+                        setOpen(false);
+                    }}>
                         <ListItemText className="text-black" primary="Home" />
                     </ListItemButton>
                     <ListItemButton

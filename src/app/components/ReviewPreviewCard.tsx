@@ -23,12 +23,12 @@ export function ReviewPreviewCard({review}: ParamsT) {
         >
             <Card className="flex gap-4 pr-1">
                 {review.imageUrl ? (
-                    <Box className="relative aspect-square w-[200px]">
+                    <Box className="relative aspect-square w-[200px] min-w-[200px] sm:min-w-min">
                         <Image
                             src={review.imageUrl}
                             alt="a picture of a burger"
                             fill
-                            className="object-cover object-bottom"
+                            className="object-cover object-bottom "
                         />
                     </Box>
                 ) : (
