@@ -1,0 +1,9 @@
+services:
+  wikipedia:
+    image: ghcr.io/kiwix/kiwix-serve
+    restart: unless-stopped
+    ports:
+      - "4444:8080"
+    volumes:
+      - ./zim:/data
+    command: '*.zim'

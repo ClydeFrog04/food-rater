@@ -31,10 +31,12 @@ export function ReviewsContextProvider({
 
 
     async function getReviews(): Promise<ReviewT[]> {
-        const BASE_URL = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
-        const res = await axios.get<ReviewT[]>(`${BASE_URL}/api/v1/reviews`);
-        if (res.status !== 200) throw new Error("Failed to fetch reviews.");
-        return res.data;
+        const BASE_URL = typeof window === 'undefined'
+            ? (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000")
+            : ""
+        const res = await axios.get<ReviewT[]>(`${BASE_URL}/api/v1/reviews`)
+        if (res.status !== 200) throw new Error("Failed to fetch reviews.")
+        return res.data
     }
 
     const refreshData = async () => {
